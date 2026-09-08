@@ -1,0 +1,29 @@
+<h1>Add Purchase</h1>
+
+<form method="POST">
+  <label>Date: <input type="date" name="date"></label><br><br>
+
+  <label>Category:
+    <select name="category">
+      <option value="food">food</option>
+      <option value="supplies">supplies</option>
+    </select>
+  </label><br><br>
+
+  <label>Amount: <input type="number" step="0.01" name="amount"></label><br><br>
+
+  <label>Unit:
+    <select name="unit">
+      <option value="single">single</option>
+      <option value="pack">pack</option>
+      <option value="pounds">pounds</option>
+      <option value="ounces">ounces</option>
+    </select>
+  </label><br><br>
+
+  <label>Price: <input type="number" step="0.01" name="price"></label><br><br>
+
+  <button type="submit">Add Purchase</button>
+</form>
+
+<a href="/">Back home</a>

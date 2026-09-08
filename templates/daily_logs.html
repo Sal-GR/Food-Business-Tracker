@@ -1,0 +1,31 @@
+<h1>Daily Logs</h1>
+
+<table border="1" cellpadding="5">
+  <tr>
+    <th>Date</th>
+    <th>Total Sales</th>
+    <th>Food Used</th>
+    <th>Food Bought</th>
+    <th>Supplies Bought</th>
+    <th>Total Expenses</th>
+    <th>Net Income</th>
+    <th>Notes</th>
+  </tr>
+  {% for log in summaries %}
+  <tr>
+    <td>{{ log.date }}</td>
+    <td>{{ log.total_sales }}</td>
+    <td>{{ log.food_used }}</td>
+    <td>{{ log.food_bought }}</td>
+    <td>{{ log.supplies_bought }}</td>
+    <td>{{ log.total_expenses }}</td>
+    <td>{{ log.net_income }}</td>
+    <td>{{ log.notes }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<br>
+<a href="/purchases/add">Add Purchase</a> |
+<a href="/daily-logs/add">Add Daily Log</a> |
+<a href="/">Back home</a>
