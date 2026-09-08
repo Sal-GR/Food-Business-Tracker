@@ -1,7 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for
-from datetime import date as date_type
+from datetime import date as date_type, datetime
 from sqlalchemy import func
 from models import db, Purchases, DailyLogs
+
+def parse_date(form_value):
+    if form_value:
+        return datetime.strptime(form_value, '%Y-%m-%d').date()
+    return date_type.today()
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///food_financials.db"
@@ -20,7 +25,8 @@ def home():
 def add_purchase():
     if request.method == 'POST':
         purchase = Purchases(
-            date=request.form.get('date', date_type.today()),
+            name=request.form['name'],
+            date=parse_date(request.form.get('date', date_type.today())),
             category=request.form['category'],
             amount=request.form['amount'],
             unit=request.form['unit'],
@@ -37,7 +43,7 @@ def add_purchase():
 def add_daily_log():
     if request.method == 'POST':
         log = DailyLogs(
-            date=request.form.get('date', date_type.today()),
+            date=parse_date(request.form.get('date', date_type.today())),
             total_sales=request.form['total_sales'],
             food_used=request.form.get('food_used') or None,
             notes=request.form.get('notes'),
