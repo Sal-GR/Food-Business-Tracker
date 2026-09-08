@@ -17,7 +17,7 @@ class Purchases(db.Model):
   __table_args__ = (db.CheckConstraint("category IN ('food', 'supplies')", name="valid_category"),
                     db.CheckConstraint("amount > 0", name="valid_amount"),
                     db.CheckConstraint("price >= 0", name="valid_price"), 
-                    db.CheckConstraint("unit IN ('single', 'pack', 'pounds', 'ounces')", name="valid_unit")
+                    db.CheckConstraint("unit IN ('single', 'pack', 'pounds', 'ounces', 'Gallons')", name="valid_unit")
   )
 
   def __repr__(self):
