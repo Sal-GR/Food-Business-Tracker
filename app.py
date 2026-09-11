@@ -2,6 +2,9 @@ from flask import Flask, render_template, request, redirect, url_for
 from datetime import date as date_type, datetime
 from sqlalchemy import func
 from models import db, Purchases, DailyLogs
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
 def parse_date(form_value):
     if form_value:
@@ -9,13 +12,18 @@ def parse_date(form_value):
     return date_type.today()
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///food_financials.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL", "sqlite:///food_financials.db")
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-fallback")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
 
 with app.app_context():
   db.create_all()
+
+@app.route('/health')
+def health():
+    return {"status" : "ok"}, 200
 
 @app.route('/')
 def home():
@@ -85,4 +93,4 @@ def view_daily_logs():
     return render_template('daily_logs.html', summaries=summaries)
 
 if __name__ == '__main__':
-  app.run(debug=True)
+  app.run()
