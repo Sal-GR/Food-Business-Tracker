@@ -3,6 +3,7 @@ from datetime import date as date_type, datetime
 from sqlalchemy import func
 from models import db, Purchases, DailyLogs
 from dotenv import load_dotenv
+from flask_migrate import Migrate
 import os
 load_dotenv()
 
@@ -17,9 +18,10 @@ app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-fallback")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
+migrate = Migrate(app, db)
 
-with app.app_context():
-  db.create_all()
+# with app.app_context():
+#   db.create_all()
 
 @app.route('/health')
 def health():
